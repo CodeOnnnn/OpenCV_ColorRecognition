@@ -1,17 +1,18 @@
 import cv2
 import numpy as np
 import pandas as pd
-img = cv2.imread(r"C:\Users\sarth\Desktop\MICROSOFT projects\colordetection\colorpalette.jpg")
+import argparse
+ap = argparse.ArgumentParser()
+ap.add_argument('-i', '--image', required=True, help="Image Path")
+args = vars(ap.parse_args())
+img_path = args['image']
+img = cv2.imread(img_path)
 img=cv2.resize(img,(700,500))
 
 clicked = False
 r = g = b = xpos = ypos = 0
-
-#Reading csv file with pandas and giving names to each column
 index=["color","color_name","hex","R","G","B"]
 csv = pd.read_csv('colors.csv', names=index, header=None)
-
-#function to calculate minimum distance from all colors and get the most matching color
 def getColorName(R,G,B):
     minimum = 10000
     for i in range(len(csv)):
@@ -20,8 +21,6 @@ def getColorName(R,G,B):
             minimum = d
             cname = csv.loc[i,"color_name"]
     return cname
-
-#function to get x,y coordinates of mouse double click
 def draw_function(event, x,y,flags,param):
     if event == cv2.EVENT_LBUTTONDBLCLK:
         global b,g,r,xpos,ypos, clicked
