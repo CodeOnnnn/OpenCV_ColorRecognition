@@ -6,5 +6,5 @@ To get this project up and running you should start by having Python installed o
 You can run the project with this command
 
 ```
-python colordetection.py -i 'path of colorpallete.jpg file on your desktop' 
+python colordetection.py -i "path of colorpallete.jpg file on your desktop"
 ```
